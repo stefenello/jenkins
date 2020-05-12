@@ -1,0 +1,62 @@
+---
+ 
+# file: /roles/jenkins/tasks/main.yml
+
+- name: Import Jenkins Key
+  rpm_key: 
+    key: '{{jenkins.yum_key}}' 
+    state: present
+  tags: 
+  - jenkins
+
+- name: Download jenkins.repo
+  get_url:
+    url: '{{jenkins.repo}}'
+    dest: '{{jenkins.destination}}'
+  tags: 
+  - jenkins
+ 
+- name: install jenkins
+  yum: 
+    name: jenkins
+    state: present
+  tags: 
+  - jenkins
+ 
+- name: create plugins directory
+  file: 
+    path: '{{jenkins.base_dir}}/plugins'
+    state: directory 
+    owner: jenkins 
+    group: jenkins
+  tags: 
+  - jenkins
+ 
+- name: copy jenkins properties
+  copy: 
+    src: '{{item}}'
+    dest: '/etc/default/jenkins'
+  with_items:
+    - jenkins
+  tags: 
+  - jenkins
+ 
+- name: ensure plugins are present
+  get_url: 
+    url: '{{jenkins.plugins_url}}/{{item}}.hpi' 
+    dest: '{{jenkins.base_dir}}/plugins/{{item}}.jpi' 
+    owner: jenkins 
+    group: jenkins
+  with_items:
+    - sonar
+    - github-oauth
+    - credentials
+    - git-client
+    - scm-api
+    - git
+    - github-api
+    - github
+  notify: 
+    restart jenkins
+  tags: 
+  - jenkins

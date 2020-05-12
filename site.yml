@@ -6,5 +6,5 @@
   roles:
     - common
     - dependencies
-    - ansible
+    - java8
     - jenkins

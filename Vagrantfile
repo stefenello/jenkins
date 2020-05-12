@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
     config.vm.network "forwarded_port", guest: 22, host:2222, id: "ssh", auto_correct: true
    
     #Habilitar el reenvio de puerto Apache
-    config.vm.network "forwarded_port", guest: 80, host:8080, id: "apache", auto_correct: true
+    config.vm.network "forwarded_port", guest: 8080, host:8000, id: "jenkins", auto_correct: true
    
     #Creacion de la VM en Virtualbox
     config.vm.define "jenkins" do |jenkins|
