@@ -1,0 +1,24 @@
+---
+ 
+#file: /roles/dependencies/tasks/main.yml
+
+- name: install the latest version of wget
+  yum:
+    name: wget
+    state: present
+  tags:
+  - dependencies
+
+- name: install the latest version of unzip
+  yum:
+    name: unzip
+    state: latest
+  tags:
+  - dependencies
+
+- name: install the latest version of git
+  yum:
+    name: git
+    state: present
+  tags:
+  - dependencies

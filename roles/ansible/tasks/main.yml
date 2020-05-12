@@ -1,0 +1,16 @@
+---
+# file: roles/ansible/tasks/main.yml
+ 
+- name: install epel-release
+  yum: 
+    name: epel-release
+    state: present 
+  tags: 
+  - ansible
+ 
+- name: install ansible
+  yum: 
+    name: ansible
+    state: present 
+  tags: 
+  - ansible

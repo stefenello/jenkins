@@ -1,0 +1,29 @@
+---
+ 
+# file: /roles/java8/tasks/main.yml
+
+- name: Bajar Java 8
+  #command: wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=https//www.oracle.com/; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm"
+  get_url:
+    url: '{{java8.download_url}}'
+    dest: '{{java8.download_folder}}/{{java8.java_archive}}'
+    headers: 'Cookie: gpw_e24=https://www.oracle.com/; oraclelicense=accept-securebackup-cookie; --no-check-certificate'     
+  tags:
+  - java8
+
+- name: Instalar java8 rpm desde un archivo local
+  yum:
+    name: '{{java8.download_folder}}/{{java8.java_archive}}'
+    state: present
+  tags:
+  - java8
+
+- name: Configurar JAVA_HOME en las variables de ambientes 
+  shell: "echo 'export JAVA_HOME={{java8.java_name}}\n export PATH=$JAVA_HOME/bin:$PATH' > {{java8.java_env_file}}"
+  tags:
+  - java8
+
+- name: Exportar y ejecutar el archivo de variables de ambiente para poner JAVA_HOME disponible globalmente
+  shell: "source {{java8.java_env_file}}"
+  tags:
+  - java8

@@ -1,0 +1,17 @@
+---
+
+java8:
+    download_url: http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
+    download_folder: /opt
+    java_name: jdk1.8.0_131
+    java_archive: jdk-8u131-linux-x64.rpm
+    java_env_file: /etc/profile.d/java.sh
+    java_home: /opt/jdk1.8.0_131
+
+jenkins:
+    password: jenkinspwd
+    base_dir: /var/lib/jenkins
+    yum_key: https://pkg.jenkins.io/redhat/jenkins.io.key
+    repo: https://pkg.jenkins.io/redhat/jenkins.repo
+    destination: /etc/yum.repos.d/jenkins.repo
+    plugins_url: http://updates.jenkins-ci.org/latest

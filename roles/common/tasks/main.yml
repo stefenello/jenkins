@@ -1,0 +1,26 @@
+---
+# file: roles/common/tasks/main.yml
+ 
+- name: Asegurar que el cache de Yum este actualizado
+  yum: 
+    update_cache: yes
+    state: latest
+  tags:
+  - common
+
+- name: Actualizar todos los paquetes
+  yum:
+    name: "*"
+    state: latest
+  tags:
+  - common
+
+- name: Cargar el teclado en español
+  shell: loadkeys es
+  tags:
+  - common
+
+- name: Cargar el teclado en español mapa Chile de manera permanente
+  shell: localectl set-keymap es_CL
+  tags:
+  - common
